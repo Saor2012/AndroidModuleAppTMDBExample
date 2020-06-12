@@ -1,0 +1,74 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    buildToolsVersion = '29.0.3'
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+//    implementation project(path: ':app')
+    //Support
+    implementation support.appcompat
+    implementation support.design
+    implementation support.support
+    implementation support.annotation
+    implementation support.recyclerview
+    implementation support.cardview
+    implementation support.constraint
+    //Logger
+    implementation loggerTim.timber
+    //Dagger
+    implementation dagger.daggerCore
+    implementation dagger.daggerAndroid
+    implementation dagger.androidSupport
+    annotationProcessor dagger.daggerCompiler
+    annotationProcessor dagger.androidProcessor
+    //RX
+    implementation rxjava.rxjava
+    implementation rxjava.rxandroid
+    //Gson
+    implementation gson.gson
+    annotationProcessor gson.autoValue
+    compileOnly gson.autoValueAnnotations
+
+
+    //Test
+    testImplementation test.junit
+    androidTestImplementation test.testRunner
+    androidTestImplementation test.testEspresso
+    testAnnotationProcessor test.testAnnotationProcessorDagger
+    androidTestAnnotationProcessor test.androidTestAnnotationProcessorDagger
+    androidTestImplementation test.testWorker
+}
